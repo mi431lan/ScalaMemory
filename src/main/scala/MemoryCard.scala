@@ -1,3 +1,3 @@
-class MemoryCard {
+case class MemoryCard (){
 
 }
