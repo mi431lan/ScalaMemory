@@ -3,7 +3,7 @@ package mpg.scala.model.memorycard
 import org.scalatest.WordSpec
 
 class MemoryCardTest extends WordSpec {
-  "A Card" should "not be flipped when the game starts" in {
+/*  "A Card" should "not be flipped when the game starts" in {
 
     val card = new MemoryCard;
     val cardState = card.getCardState(); // muss funktional nicht oop sein
@@ -18,5 +18,5 @@ class MemoryCardTest extends WordSpec {
     val cardState = card.getCardState();
     assert(cardState, true)
 
-  }
+  }*/
 }

@@ -5,9 +5,7 @@ import org.scalatest.{WordSpec}
 class PlayerTest extends WordSpec {
 
 
-
-
-  "A player" should "receive points if both clicked cards matches" in {
+ /* "A player" should "receive points if both clicked cards matches" in {
 
     val player = new Player()
     val isAMatch = player.compareClickedCards(cardOne, cardTwo)
@@ -37,5 +35,6 @@ class PlayerTest extends WordSpec {
       val playerPoints = player.getPoints
       assert(playerPoints, 0)
   }}
+*/
 
 }
