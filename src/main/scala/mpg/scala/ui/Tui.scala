@@ -1,3 +1,4 @@
+/*
 package mpg.scala.ui
 
 import scala.swing.{Dimension, Label, MainFrame}
@@ -19,3 +20,4 @@ object GuiProgramOne {
     println("End of main function")
   }
 }
+*/

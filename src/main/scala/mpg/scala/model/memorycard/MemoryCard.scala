@@ -5,6 +5,8 @@ import javafx.scene.shape.Box
 
 case class MemoryCard() {
 
+  val cardstate= false
+
   val box = new Box(50, 40, 60)
   val backSide= "backside.png"
 
@@ -38,21 +40,22 @@ case class MemoryCard() {
 
 //
 val card = new MemoryCard()
-def drawFaceDown(box: Box): Unit ={
-    card.backSide
-}
-  def drawFaceUp(box: Box): Unit ={
-    card.frontSide
-  }
-  //TODO: method card status : frontSide or backSite
-def getCardsState (box: Box): Unit ={
 
+
+def getCardState (): Boolean ={
+  return cardstate
 }
   //method if player clicks on card, flip Card
-  def onClickAction(box: Box): Unit ={
-    card.drawFaceUp(box:Box)
+  def flipCardToFrontSide(): Unit ={
+    if(cardstate==false){
+      cardstate==true
+    }
   }
-
+  def flipCardToBackSide(): Unit ={
+    if(cardstate==true){
+      cardstate==false
+    }
+  }
 
 
 

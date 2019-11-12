@@ -3,7 +3,7 @@ package mpg.scala.model.board
 case class Board (){
   //TODO: decide whether board has fields or not
 // Vorschlag Position der Karten per Zufall auf Board generieren
-var Tile = function(x, y) {
+/*var Tile = function(x, y) {
   this.x = x;
   this.y = y;
   this.width = 70;
@@ -29,5 +29,5 @@ var Tile = function(x, y) {
   // Start by drawing them all face down
   for (var i = 0; i < tiles.length; i++) {
     tiles[i].drawFaceDown();
-  }
+  }*/
 }
