@@ -23,6 +23,8 @@ case class MemoryCard() {
   val scala1 = "scala.jpg";
   val scala2 = "scala.jpg";
 
+
+//all possible images
   var frontSide= {new Image(csharp1)
     new Image(csharp2)
     new Image(java1 )
@@ -34,21 +36,24 @@ case class MemoryCard() {
     new Image(scala1)
     new Image(scala2) }
 
-
+//
+val card = new MemoryCard()
 def drawFaceDown(box: Box): Unit ={
-    backSide
+    card.backSide
 }
   def drawFaceUp(box: Box): Unit ={
-    frontSide
+    card.frontSide
   }
   //TODO: method card status : frontSide or backSite
+def getCardsState (box: Box): Unit ={
 
-
-  mouseClicked = function() {
-    // verarbeiten den Klick
+}
+  //method if player clicks on card, flip Card
+  def onClickAction(box: Box): Unit ={
+    card.drawFaceUp(box:Box)
   }
 
-  //TODO: flip when Player clicks , change state of card
+
 
 
 }
