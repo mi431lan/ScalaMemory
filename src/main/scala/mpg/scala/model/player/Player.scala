@@ -1,8 +1,8 @@
 package mpg.scala.model.player
 
+import javafx.scene.image.Image
 import mpg.scala.model.memorycard.MemoryCard
-
-case class Player(val name: String, var points: Int) { //add also var turn Boolean
+case class Player(private val name: String, var points: Int) { //add also var turn Boolean
 
   val csharp1 = "csharp.png";
   val csharp2 = "csharp.png";
@@ -18,6 +18,11 @@ case class Player(val name: String, var points: Int) { //add also var turn Boole
 
   val scala1 = "scala.jpg";
   val scala2 = "scala.jpg";
+
+
+
+
+
 
   //Method:CompareTwoCards,if Match get points
   def compareTwoCards(memorycard: Memorycard, memoryCard: MemoryCard): Unit = {
@@ -47,7 +52,7 @@ case class Player(val name: String, var points: Int) { //add also var turn Boole
   //alternative Method for comparison of 2 cards
 
   def checkMatch(): Boolean = {
-    val pic1 = for (csharp1
+    val pic = for (csharp1
     , csharp2
     , java1
     , java2
