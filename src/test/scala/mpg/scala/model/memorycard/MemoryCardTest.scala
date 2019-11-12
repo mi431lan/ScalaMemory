@@ -7,19 +7,18 @@ class MemoryCardTest extends WordSpec {
     "not be flipped when the game starts" in{
 
       val card = new MemoryCard;
-      val cardState = card.getCardState(); // muss funktional nicht oop sein
-      assert(cardState, false)
-
+      val cardState:Boolean = card.getCardState(); // muss funktional nicht oop sein
+      assert(!cardState)
     }
   }
 
   "A Card" should {
     "be flipped on clickAction" in {
 
-      val card = new MemoryCard();
-      card.flipCardToFrontSide();
+      var card = MemoryCard();
+      card.flipCardToBackSide();
       val cardState = card.getCardState();
-      assert(cardState, true)
+      assert(cardState)
 
     }
   }
