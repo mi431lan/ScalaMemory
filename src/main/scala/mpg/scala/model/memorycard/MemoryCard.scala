@@ -1,41 +1,62 @@
 package mpg.scala.model.memorycard
 
+import scala.swing.Color
 
-case class MemoryCard() {
 
-  var cardstate=false
-  val backSide= "backside.png"
+case class MemoryCard(back: Color, front: Color, state: Boolean) {
 
-  val csharp1 = "csharp.png";
-  val csharp2 = "csharp.png";
+  private val cardState: Boolean = state
+  //TODO Bilder statt farben einfügen
+  private val backSide: Color = back
+  private val frontSide: Color = front
 
-  val java1 = "java.jpg";
-  val java2 = "java.jpg";
 
-  val kotlin1 = "Kotlin.png";
-  val kotlin2 = "Kotlin.png";
+  def getCardState: Boolean = {
 
-  val python1 = "python.jpg";
-  val python2 = "python.jpg";
-
-  val scala1 = "scala.jpg";
-  val scala2 = "scala.jpg";
-
-def getCardState (): Boolean ={
-  cardstate
-}
-  //method if player clicks on card, flip Card
-  def flipCardToFrontSide(): Unit ={
-    if(!cardstate){
-      cardstate=true;
-    }
-  }
-  def flipCardToBackSide(): Unit ={
-    if(cardstate){
-      cardstate=false
-    }
+    println("Card state is " + cardState)
+    cardState
   }
 
+  def getBackSide: Color = {
 
+    backSide
+  }
 
+  def getFrontSide: Color = {
+
+    frontSide
+  }
+
+  def getActiveBackground: Color = {
+
+    if (getCardState) {
+      getFrontSide
+    } else {
+      getBackSide
+    }
+  }
+
+  def flipCardToFrontSide(): MemoryCard = {
+
+    if (!cardState) {
+      println("Flipped card to front side")
+      MemoryCard(back, front, state = true)
+    } else {
+      println("Flipped")
+
+      MemoryCard(back, front, state = false)
+
+    }
+  }
+
+  def flipCardToBackSide(): MemoryCard = {
+
+    if (cardState) {
+      println("Flipped card to back side")
+      MemoryCard(back, front, state = false)
+    } else {
+      MemoryCard(back, front, state = true)
+    }
+  }
 }
+
