@@ -1,33 +1,60 @@
 package mpg.scala.model.board
 
-case class Board (){
-  //TODO: decide whether board has fields or not
-// Vorschlag Position der Karten per Zufall auf Board generieren
-/*var Tile = function(x, y) {
-  this.x = x;
-  this.y = y;
-  this.width = 70;
-};
+import mpg.scala.model.memorycard.MemoryCard
 
-  Tile.prototype.drawFaceDown = function() {
-    fill(214, 247, 202);
-    strokeWeight(2);
-    rect(this.x, this.y, this.width, this.width, 10);
-    image(getImage("avatars/leaf-green"), this.x, this.y, this.width, this.width);
-  };
+case class Board(cards: Vector[MemoryCard], gameMoves: Int) {
 
-  // Create the array of tiles at appropriate positions
-  var tiles = [];
-  var NUM_COLS = 5;
-  var NUM_ROWS = 4;
-  for (var i = 0; i < NUM_COLS; i++) {
-    for (var j = 0; j < NUM_ROWS; j++) {
-      tiles.push(new Tile(i * 78 + 10, j * 78 + 40));
-    }
+  val cards_ : Vector[MemoryCard] = cards
+  var gameMoves_ = 0;
+
+  def getCardsCount: Int = {
+
+    cards_.length
   }
 
-  // Start by drawing them all face down
-  for (var i = 0; i < tiles.length; i++) {
-    tiles[i].drawFaceDown();
-  }*/
+  def checkGameStatus: Boolean = {
+
+    if (gameMoves_ == 3) {
+      println("Two cards flipped, reset..")
+      resetCards
+      resetGameMoves
+      return true
+    }
+    false
+  }
+
+  def getCards: Vector[MemoryCard] = {
+
+    cards_
+  }
+
+  def getGameMoves: Int = {
+
+    gameMoves_
+  }
+
+  def resetCards: String = {
+
+    for (n <- cards_) n.flipCardToBackSide()
+    val returnVal = "Card reset"
+    returnVal
+  }
+
+  def resetGameMoves: Int = {
+    gameMoves_ = 0;
+    gameMoves_
+  }
+
+  def countGameMoveUp: Int = {
+    gameMoves_ += 1
+    gameMoves_
+  }
+
+  def compareCards(card1: MemoryCard, card2: MemoryCard): Boolean = {
+
+    if (card1.getFrontSide.equals(card2.getFrontSide)) {
+      true
+    } else false
+  }
+
 }
