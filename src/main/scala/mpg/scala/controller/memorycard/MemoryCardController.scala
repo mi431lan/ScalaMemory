@@ -1,31 +1,45 @@
 package mpg.scala.controller.memorycard
 
 import java.awt.Color
+import java.awt.event.ActionListener
 
 import mpg.scala.model.memorycard.MemoryCard
+import mpg.scala.observerpattern.{Observer, Subject}
+import mpg.scala.ui.gui.Gui
+import mpg.scala.ui.panels.{BoardPanel, MemoryCardPanel}
+import mpg.scala.ui.tui.Tui
 
-case class MemoryCardController(memoryCardModel: MemoryCard) {
+case class MemoryCardController(memoryCardModel: MemoryCard) extends Subject {
 
+ var memoryCard:MemoryCard=memoryCardModel
+  def getCard:MemoryCard={
+    memoryCard
+  }
   def getBackSide: Color = {
 
-    memoryCardModel.getBackSide
+    memoryCard.backSide
   }
 
   def getFrontSide: Color = {
 
-    memoryCardModel.getFrontSide
+    memoryCard.frontSide
   }
 
   def getActiveBackground: Color = {
 
-    memoryCardModel.getActiveBackground
+    memoryCard.getActiveBackground
   }
 
   def flipCardToFrontSide(): Color = {
 
-    val card = memoryCardModel.flipCardToFrontSide()
-
-    card.getActiveBackground
+    memoryCard = memoryCard.flipCardToFrontSide()
+    notifyObserversCardUpdate()
+    memoryCard.getActiveBackground
   }
 
+  def flipCardToBackSide(): Color = {
+
+    memoryCard = memoryCard.flipCardToBackSide()
+    memoryCard.getActiveBackground
+  }
 }
