@@ -1,32 +1,24 @@
 package mpg.scala.model.board
 
 import mpg.scala.model.memorycard.MemoryCard
+import mpg.scala.observerpattern.{Observer, Subject}
+
+import scala.collection.mutable.ListBuffer
 
 case class Board(cards: Vector[MemoryCard], gameMoves: Int) {
 
-  val cards_ : Vector[MemoryCard] = cards
   var gameMoves_ = 0;
 
-  def getCardsCount: Int = {
-
-    cards_.length
-  }
 
   def checkGameStatus: Boolean = {
 
-    if (gameMoves_ == 3) {
-      println("Two cards flipped, reset..")
-      resetCards
+    if (gameMoves_ == 2) {
       resetGameMoves
       return true
     }
     false
   }
 
-  def getCards: Vector[MemoryCard] = {
-
-    cards_
-  }
 
   def getGameMoves: Int = {
 
@@ -35,26 +27,46 @@ case class Board(cards: Vector[MemoryCard], gameMoves: Int) {
 
   def resetCards: String = {
 
-    for (n <- cards_) n.flipCardToBackSide()
+    for (n <- cards) n.flipCardToBackSide()
     val returnVal = "Card reset"
     returnVal
   }
 
+  def removeMatchedCards(card1: MemoryCard, card2: MemoryCard): String = {
+
+    cards.diff(Seq(card1, card2))
+    ""
+  }
+
   def resetGameMoves: Int = {
+
     gameMoves_ = 0;
     gameMoves_
   }
 
   def countGameMoveUp: Int = {
+
     gameMoves_ += 1
     gameMoves_
   }
 
-  def compareCards(card1: MemoryCard, card2: MemoryCard): Boolean = {
+  def compareCards(): Boolean = {
 
-    if (card1.getFrontSide.equals(card2.getFrontSide)) {
-      true
-    } else false
+  /*  if (flippedCards.size > 1) {
+
+      if (flippedCards.apply(0).frontSide.equals(flippedCards.apply(1).frontSide)) {
+        println("match")
+        flippedCards.clear()
+        true
+      } else {
+        println("no match")
+        flippedCards.clear()
+        false
+      }
+    }else {
+      false
+    }*/
+    false
   }
 
 }
