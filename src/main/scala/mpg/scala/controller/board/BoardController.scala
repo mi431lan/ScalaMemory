@@ -50,10 +50,10 @@ class BoardController(board: Board, playerOneModel: Player, playerTwoModel: Play
   def addPointsToActivePlayer(): Int = {
 
     if (playerOne.isActive) {
-      playerOne = playerOne.addPoint(1)
+      playerOne = playerOne.addPoint()
       return playerOne.points
     } else if (playerTwo.isActive) {
-      playerTwo = playerTwo.addPoint(1)
+      playerTwo = playerTwo.addPoint()
       return playerTwo.points
     }
     0
