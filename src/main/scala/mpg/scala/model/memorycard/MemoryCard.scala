@@ -1,14 +1,10 @@
 package mpg.scala.model.memorycard
 
-import mpg.scala.observerpattern.Subject
-
 import scala.swing.Color
-
 
 case class MemoryCard(backSide: Color, frontSide: Color, state: Boolean){
 
   private val cardState: Boolean = state
-  //TODO Bilder statt farben einfügen
 
   def getActiveBackground: Color = {
 
