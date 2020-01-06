@@ -5,7 +5,7 @@ import java.awt.Color
 import javax.swing.JMenuItem
 import mpg.scala.controller.board.BoardController
 import mpg.scala.controller.memorycard.MemoryCardController
-import mpg.scala.model.board.Board
+import mpg.scala.model.board.{Board, CardCreator}
 import mpg.scala.model.memorycard.MemoryCard
 import mpg.scala.model.player.Player
 import mpg.scala.observerpattern.{Observer, Subject}
@@ -15,12 +15,9 @@ import scala.io.StdIn
 import scala.swing.{Dimension, Label, MainFrame}
 
 class Tui extends Observer {
-  var cards: Vector[MemoryCard] = Vector(MemoryCard(Color.BLACK, Color.YELLOW, state = false),
-    MemoryCard(Color.BLACK, Color.YELLOW, state = false),
-    MemoryCard(Color.BLACK, Color.BLUE, state = false),
-    MemoryCard(Color.BLACK, Color.BLUE, state = false))
+  var cards: Vector[MemoryCard] =CardCreator().createRandomCardSet(12)
 
-  val board = new Board(cards, 0)
+  val board = new Board(cards)
   val playerOne: Player = Player(isActive = true, 0)
   val playerTwo: Player = Player(isActive = false, 0)
 
