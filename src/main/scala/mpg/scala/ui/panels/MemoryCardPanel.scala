@@ -1,17 +1,17 @@
 package mpg.scala.ui.panels
 
-import java.awt.Color
-
+import java.util.{Timer, TimerTask}
 import javax.swing.border.LineBorder
 import mpg.scala.controller.board.BoardController
 import mpg.scala.controller.memorycard.MemoryCardController
 import mpg.scala.observerpattern.Observer
 
-import scala.swing.{Color, Panel}
-import scala.swing.event.{MouseClicked, MouseReleased}
+import scala.swing.{Dimension, Panel}
+import scala.swing.event.{MouseClicked}
 
 class MemoryCardPanel(boardPanel: BoardPanel, memoryCardController: MemoryCardController, boardController: BoardController) extends Panel with Observer {
 
+  preferredSize = new Dimension(200, 200)
   opaque = true
   background = memoryCardController.getBackSide
   border = LineBorder.createGrayLineBorder()
@@ -27,18 +27,22 @@ class MemoryCardPanel(boardPanel: BoardPanel, memoryCardController: MemoryCardCo
   }
 
   override def receiveCardUpdate(): Unit = {
-    println("CARD receiveCardUpdate")
     background = memoryCardController.getActiveBackground
   }
 
   override def receiveGameUpdate(boolean: Boolean): Unit = {
-    println("CARD receiveGameUpdate")
     if (!boolean && memoryCardController.getCard.state) {
-      println("NOT MATCH FLIPPING ALL")
-      background = memoryCardController.flipCardToBackSide()
+      background = memoryCardController.getActiveBackground
+
+      new Timer().schedule(new TimerTask() {
+        override def run(): Unit = {
+          background = memoryCardController.flipCardToBackSide()
+        }
+      }, 500)
+
+
     } else if (boolean && memoryCardController.getCard.state) {
-      println("match")
-      visible= false
+      visible = false
     }
   }
 }
