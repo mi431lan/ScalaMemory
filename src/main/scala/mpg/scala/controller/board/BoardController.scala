@@ -21,32 +21,18 @@ class BoardController(board: Board, playerOneModel: Player, playerTwoModel: Play
   }
 
   def addCard(card: MemoryCard): MemoryCard = {
-    println("Add Card")
+
     flippedCards += card
     card
   }
 
-  def checkGameStatus: Boolean = {
-
-    val boolean = board.checkGameStatus
-    boolean
-  }
-
-  def countGameMoveUp: Int = {
-    val moves = board.countGameMoveUp
-    moves
-  }
-
-  def getGameMoves: Int = {
-    board.getGameMoves
-  }
-
   def compareCards(): Boolean = {
+
     if (flippedCards.size > 1) {
 
       if (flippedCards.apply(0).frontSide.equals(flippedCards.apply(1).frontSide)) {
         flippedCards.clear()
-        checkActivePlayer()
+        addPointsToActivePlayer()
         notifyObserversGameUpdate(true)
         true
       } else {
@@ -61,25 +47,42 @@ class BoardController(board: Board, playerOneModel: Player, playerTwoModel: Play
     }
   }
 
-  def checkActivePlayer(): Unit = {
+  def addPointsToActivePlayer(): Int = {
+
     if (playerOne.isActive) {
       playerOne = playerOne.addPoint(1)
+      return playerOne.points
     } else if (playerTwo.isActive) {
       playerTwo = playerTwo.addPoint(1)
+      return playerTwo.points
     }
+    0
+  }
+
+  def checkActivePlayer(): Int = {
+
+    if (playerOne.isActive) {
+      1
+    } else {
+      2
+    }
+
   }
 
   def changeActivePlayer(): Unit = {
+
     playerOne = playerOne.changeActive()
     playerTwo = playerTwo.changeActive()
 
   }
 
   def getPlayerOnePoints: Int = {
+
     playerOne.points
   }
 
   def getPlayerTwoPoints: Int = {
+
     playerTwo.points
   }
 }
