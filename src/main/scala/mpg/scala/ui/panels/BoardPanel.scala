@@ -1,6 +1,6 @@
 package mpg.scala.ui.panels
 
-import java.awt.Color
+import java.awt.{Color, Font}
 import java.awt.event.ComponentEvent
 
 import javax.swing.border.Border
@@ -37,13 +37,37 @@ class BoardPanel(rows0: Int, cols0: Int, boardController: BoardController) exten
     boardController.compareCards()
   }
 
+  var count = 0;
+
   override def receiveGameUpdate(boolean: Boolean): Unit = {
 
     visualizeActivePlayer()
     pointsP1.text_=("Player 1: " + boardController.getPlayerOnePoints)
     pointsP2.text_=("Player 2: " + boardController.getPlayerTwoPoints)
+    if (boolean) {
 
+      count = count + 2
+      println(count)
+    }
+    if (count == cards__.size) {
+      contents -= pointsP1
+      contents -= pointsP2
+      var gameFinish: Label = new Label {
 
+        text = getWinner
+        font = new Font("Ariel", java.awt.Font.ITALIC, 18)
+      }
+      contents += gameFinish
+
+    }
+
+  }
+
+  def getWinner: String = {
+    if (boardController.playerOne.points > boardController.playerTwo.points) {
+      "Player One has won!!"
+    } else
+      "Player Two has won!!"
   }
 
   def visualizeActivePlayer(): Unit = {
