@@ -1,54 +1,36 @@
-
 package mpg.scala.model.player
+
+import java.awt.Color
 
 import mpg.scala.model.memorycard.MemoryCard
 import org.scalatest.WordSpec
 
 class PlayerTest extends WordSpec {
 
-
-  //Läuft durch
-  "A player" should {
-    "receive points if both clicked cards matches" in {
-      val cardOne = new MemoryCard
-      val cardTwo = new MemoryCard
-      val player = new Player()
-      val isAMatch = player.compareClickedCards(cardOne, cardTwo)
-      assert(isAMatch, true)
-
+  "A Player" should {
+    "should get points correctly" in {
+      val player = Player(isActive = true, 0);
+      val playerNew = player.addPoint()
+      assert(1 == playerNew.points)
     }
   }
 
-  def assertResult_(i: Int, value: 10): Any = 0
-
-  "A players points" should {
-    "be calculated correct" in {
-      val player = new Player()
-      player.updatePoints() //true false
-      val actualPlayerPoints: Int = player.getPoints()
-      assertResult_(actualPlayerPoints, 10) //das nehmen da Rückgabewert Int sein soll?
-
-
-      /* player.updatePoints() //true false
-      val actualPlayerPoints:Int = player.getPoints()
-        assertResult(player.getPoints(),0)
-
-        player.updatePoints() //true false
-        //val actualPlayerPoints:Int = player.getPoints()
-        assertResult(player.getPoints())*/
-
+  "A active Player" should {
+    "should be set inactive correctly" in {
+      val player = Player(isActive = true, 0);
+      val playerNew = player.changeActive()
+      assert(!playerNew.isActive)
     }
   }
-//TODO: Nochmals prüfen
-    "A players points" should{
-      "be start at zero" in {
-        val player = new Player()
-        val playerPoints:Int = 0
 
-        assertResult(playerPoints, 0)
-    }}
-
-
+  "A inactive Player" should {
+    "should be set active correctly" in {
+      val player = Player(isActive = false, 0);
+      val playerNew = player.changeActive()
+      assert(playerNew.isActive)
+    }
+  }
 
 }
+
 
