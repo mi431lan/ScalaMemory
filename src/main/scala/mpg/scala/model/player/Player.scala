@@ -2,7 +2,6 @@ package mpg.scala.model.player
 
 case class Player(isActive: Boolean, points: Int) {
 
-
   def addPoint(): Player = {
 
     Player(isActive, points + 1)

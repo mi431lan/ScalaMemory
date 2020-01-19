@@ -6,7 +6,6 @@ import mpg.scala.model.memorycard.MemoryCard
 
 case class CardCreator() {
 
-
   def createRandomCardSet(size: Int): Vector[MemoryCard] = {
 
     val r = scala.util.Random
