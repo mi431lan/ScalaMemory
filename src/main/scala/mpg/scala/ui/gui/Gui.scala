@@ -8,11 +8,13 @@ import mpg.scala.model.board.{Board, CardCreator}
 import mpg.scala.model.memorycard.MemoryCard
 import mpg.scala.model.player.Player
 import mpg.scala.ui.panels.BoardPanel
+import mpg.scala.ui.tui.Tui
 
 import scala.swing.event.ButtonClicked
 import scala.swing.{Button, Dimension, GridPanel, Label, MainFrame}
 
-class Gui extends MainFrame {
+class Gui (boardController:BoardController)extends MainFrame {
+
   title = "Scala Memory"
   var start: Label = new Label {
     text = "Choose difficulty!"
@@ -39,34 +41,41 @@ class Gui extends MainFrame {
   contents = gridPanel
 
   listenTo(buttonEasy, buttonMedium, buttonHard)
-  var board: Board = _
   reactions += {
     case ButtonClicked(component) if component == buttonEasy =>
-      board = Board(CardCreator().createRandomCardSet(12))
+      boardController.board = Board(CardCreator().createRandomCardSet(12))
       contents = createGame(12)
     case ButtonClicked(component) if component == buttonMedium =>
-      board = Board(CardCreator().createRandomCardSet(24))
+      boardController.board = Board(CardCreator().createRandomCardSet(24))
       contents = createGame(24)
     case ButtonClicked(component) if component == buttonHard =>
-      board = Board(CardCreator().createRandomCardSet(36))
+      boardController.board = Board(CardCreator().createRandomCardSet(36))
       contents = createGame(36)
 
 
   }
 
   def createGame(cards:Int): BoardPanel = {
-    val playerOne: Player = Player(isActive = true, 0)
-    val playerTwo: Player = Player(isActive = false, 0)
-    val boardController = new BoardController(board, playerOne, playerTwo)
+    boardController.createCardControllers
     new BoardPanel(cards/4, 6, boardController)
   }
 
 }
 
 object ScalaMemory {
+
+  val playerOne: Player = Player(isActive = true, 0)
+  val playerTwo: Player = Player(isActive = false, 0)
+  val cards__ : Vector[MemoryCard]=Vector[MemoryCard]()
+  var board:Board=Board(cards__)
+  val boardController = new BoardController(board, playerOne, playerTwo)
+  boardController.createCardControllers
+
   def main(args: Array[String]) {
-    val ui = new Gui
+    val ui = new Gui(boardController)
     ui.visible = true
+    val tui = new Tui(boardController)
+    tui.startGame()
     println("End of main function")
   }
 }

@@ -9,15 +9,15 @@ import mpg.scala.controller.memorycard.MemoryCardController
 import mpg.scala.model.memorycard.MemoryCard
 import mpg.scala.observerpattern.Observer
 
+import scala.collection.mutable.ListBuffer
 import scala.swing.{GridPanel, Label}
 
 class BoardPanel(rows0: Int, cols0: Int, boardController: BoardController) extends GridPanel(rows0, cols0) with Observer {
 
   boardController.addObserver(this)
-  val cards__ : Vector[MemoryCard] = boardController.getCards
 
-  for (n <- cards__) {
-    contents += new MemoryCardPanel(this, MemoryCardController(n), boardController)
+  for (n <- boardController.cardControllers) {
+    contents += new MemoryCardPanel(this, n, boardController)
   }
 
   var pointsP1: Label = new Label {
@@ -47,9 +47,8 @@ class BoardPanel(rows0: Int, cols0: Int, boardController: BoardController) exten
     if (boolean) {
 
       count = count + 2
-      println(count)
     }
-    if (count == cards__.size) {
+    if (count == boardController.getCards.size) {
       contents -= pointsP1
       contents -= pointsP2
       var gameFinish: Label = new Label {
@@ -58,7 +57,6 @@ class BoardPanel(rows0: Int, cols0: Int, boardController: BoardController) exten
         font = new Font("Ariel", java.awt.Font.ITALIC, 18)
       }
       contents += gameFinish
-
     }
 
   }

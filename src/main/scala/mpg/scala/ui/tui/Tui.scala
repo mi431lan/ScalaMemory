@@ -14,27 +14,33 @@ import mpg.scala.ui.panels.{BoardPanel, MemoryCardPanel}
 import scala.io.StdIn
 import scala.swing.{Dimension, Label, MainFrame}
 
-class Tui extends Observer {
-  var cards: Vector[MemoryCard] =CardCreator().createRandomCardSet(12)
+class Tui(boardController: BoardController) extends Observer {
 
-  val board = new Board(cards)
-  val playerOne: Player = Player(isActive = true, 0)
-  val playerTwo: Player = Player(isActive = false, 0)
-
-  val boardController = new BoardController(board, playerOne, playerTwo)
-  boardController.addObserver(this)
+  var count = 0;
 
   def startGame(): Unit = {
+    boardController.addObserver(this)
+    for (n <- boardController.cardControllers) {
+      n.addObserver(this)
+      println("aaa")
+    }
     println("###########################################")
     println(":::::::::::::: WELCOME TO MEMORY ::::::::::")
     println("###########################################")
     println("\n")
 
-    println("Choose Card 1:")
-    chooseCard
-    println("Choose Card 1:")
-    chooseCard
+    makeGameMove()
+    while (count != boardController.getCards.size) {
+      makeGameMove()
+    }
 
+  }
+
+  def makeGameMove(): Unit = {
+    println("Choose Card 1:")
+    chooseCard
+    println("Choose Card 2:")
+    chooseCard
 
     if (boardController.compareCards()) {
       println("Match!!!")
@@ -42,26 +48,30 @@ class Tui extends Observer {
       println("No Match!!!")
 
     }
-
   }
 
   def chooseCard: MemoryCard = {
     val cardNr = StdIn.readInt()
-    boardController.addCard(cards.apply(cardNr - 1))
+    boardController.cardControllers.apply(cardNr - 1).flipCardToFrontSide()
+    boardController.addCard(boardController.getCards.apply(cardNr - 1))
   }
 
   override def receiveCardUpdate(): Unit = {
   }
 
+
   override def receiveGameUpdate(boolean: Boolean): Unit = {
+    println("Points P1: " + boardController.playerOne.points)
+    println("Points P2: " + boardController.playerTwo.points)
+    if (boolean) {
 
-  }
-}
-
-object Main {
-  def main(args: Array[String]): Unit = {
-
-    val tui = new Tui
-    tui.startGame()
+      count = count + 2
+    }
+    if (count == boardController.getCards.size) {
+      if (boardController.playerOne.points > boardController.playerTwo.points) {
+        println("Player One has won!!")
+      } else
+        println("Player Two has won!!")
+    }
   }
 }
