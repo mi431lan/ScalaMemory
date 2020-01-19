@@ -1,7 +1,4 @@
-
 package mpg.scala.model.player
-
-import mpg.scala.model.memorycard.MemoryCard
 
 case class Player(isActive: Boolean, points: Int) {
 

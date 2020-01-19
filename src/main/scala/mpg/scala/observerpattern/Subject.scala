@@ -1,6 +1,5 @@
 package mpg.scala.observerpattern
 
-
 trait Subject {
   private var observers: List[Observer] = Nil
 

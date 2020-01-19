@@ -4,8 +4,7 @@ import mpg.scala.controller.memorycard.MemoryCardController
 import mpg.scala.model.board.Board
 import mpg.scala.model.memorycard.MemoryCard
 import mpg.scala.model.player.Player
-import mpg.scala.observerpattern.{Observer, Subject}
-import mpg.scala.ui.panels.{BoardPanel, MemoryCardPanel}
+import mpg.scala.observerpattern.{Subject}
 
 import scala.collection.mutable.ListBuffer
 
@@ -17,22 +16,17 @@ class BoardController(var board: Board, playerOneModel: Player, playerTwoModel: 
   var playerOne: Player = playerOneModel
   var playerTwo: Player = playerTwoModel
 
-  def createCardControllers:ListBuffer[MemoryCardController]={
+  def createCardControllers: ListBuffer[MemoryCardController] = {
 
     for (n <- getCards) {
       cardControllers += MemoryCardController(n)
-
     }
     cardControllers
   }
 
-  def getCards: Vector[MemoryCard] = {
-
-    board.cards
-  }
+  def getCards: Vector[MemoryCard] = board.cards
 
   def addCard(card: MemoryCard): MemoryCard = {
-
     flippedCards += card
     card
   }
@@ -40,7 +34,6 @@ class BoardController(var board: Board, playerOneModel: Player, playerTwoModel: 
   def compareCards(): Boolean = {
 
     if (flippedCards.size > 1) {
-
       if (flippedCards.apply(0).frontSide.equals(flippedCards.apply(1).frontSide)) {
         flippedCards.clear()
         addPointsToActivePlayer()
@@ -50,7 +43,6 @@ class BoardController(var board: Board, playerOneModel: Player, playerTwoModel: 
         flippedCards.clear()
         changeActivePlayer()
         notifyObserversGameUpdate(false)
-
         false
       }
     } else {
@@ -77,23 +69,15 @@ class BoardController(var board: Board, playerOneModel: Player, playerTwoModel: 
     } else {
       2
     }
-
   }
 
   def changeActivePlayer(): Unit = {
 
     playerOne = playerOne.changeActive()
     playerTwo = playerTwo.changeActive()
-
   }
 
-  def getPlayerOnePoints: Int = {
+  def getPlayerOnePoints: Int = playerOne.points
 
-    playerOne.points
-  }
-
-  def getPlayerTwoPoints: Int = {
-
-    playerTwo.points
-  }
+  def getPlayerTwoPoints: Int = playerTwo.points
 }

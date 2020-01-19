@@ -5,7 +5,6 @@ import javax.swing.border.LineBorder
 import mpg.scala.controller.board.BoardController
 import mpg.scala.controller.memorycard.MemoryCardController
 import mpg.scala.observerpattern.Observer
-
 import scala.swing.{Dimension, Panel}
 import scala.swing.event.{MouseClicked}
 
@@ -26,11 +25,10 @@ class MemoryCardPanel(boardPanel: BoardPanel, memoryCardController: MemoryCardCo
       memoryCardController.flipCardToFrontSide()
   }
 
-  override def receiveCardUpdate(): Unit = {
-    background = memoryCardController.getActiveBackground
-  }
+  override def receiveCardUpdate(): Unit = background = memoryCardController.getActiveBackground
 
   override def receiveGameUpdate(boolean: Boolean): Unit = {
+
     if (!boolean && memoryCardController.getCard.state) {
       background = memoryCardController.getActiveBackground
 
@@ -39,7 +37,6 @@ class MemoryCardPanel(boardPanel: BoardPanel, memoryCardController: MemoryCardCo
           background = memoryCardController.flipCardToBackSide()
         }
       }, 500)
-
 
     } else if (boolean && memoryCardController.getCard.state) {
       visible = false

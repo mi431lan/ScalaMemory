@@ -4,5 +4,4 @@ import mpg.scala.model.memorycard.MemoryCard
 
 case class Board(cards: Vector[MemoryCard]) {
 
-
 }

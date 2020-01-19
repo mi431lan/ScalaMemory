@@ -1,19 +1,13 @@
 package mpg.scala.ui.gui
 
-import java.awt.Color
-
-import javax.swing.JMenuItem
 import mpg.scala.controller.board.BoardController
 import mpg.scala.model.board.{Board, CardCreator}
-import mpg.scala.model.memorycard.MemoryCard
-import mpg.scala.model.player.Player
 import mpg.scala.ui.panels.BoardPanel
-import mpg.scala.ui.tui.Tui
 
 import scala.swing.event.ButtonClicked
-import scala.swing.{Button, Dimension, GridPanel, Label, MainFrame}
+import scala.swing.{Button, GridPanel, Label, MainFrame}
 
-class Gui (boardController:BoardController)extends MainFrame {
+class Gui(boardController: BoardController) extends MainFrame {
 
   title = "Scala Memory"
   var start: Label = new Label {
@@ -55,9 +49,9 @@ class Gui (boardController:BoardController)extends MainFrame {
 
   }
 
-  def createGame(cards:Int): BoardPanel = {
+  def createGame(cards: Int): BoardPanel = {
     boardController.createCardControllers
-    new BoardPanel(cards/4, 6, boardController)
+    new BoardPanel(cards / 4, 6, boardController)
   }
 
 }

@@ -1,18 +1,9 @@
 package mpg.scala.ui.tui
 
-import java.awt.Color
-
-import javax.swing.JMenuItem
 import mpg.scala.controller.board.BoardController
-import mpg.scala.controller.memorycard.MemoryCardController
-import mpg.scala.model.board.{Board, CardCreator}
 import mpg.scala.model.memorycard.MemoryCard
-import mpg.scala.model.player.Player
-import mpg.scala.observerpattern.{Observer, Subject}
-import mpg.scala.ui.panels.{BoardPanel, MemoryCardPanel}
-
+import mpg.scala.observerpattern.{Observer}
 import scala.io.StdIn
-import scala.swing.{Dimension, Label, MainFrame}
 
 class Tui(boardController: BoardController) extends Observer {
 
@@ -58,7 +49,6 @@ class Tui(boardController: BoardController) extends Observer {
 
   override def receiveCardUpdate(): Unit = {
   }
-
 
   override def receiveGameUpdate(boolean: Boolean): Unit = {
     println("Points P1: " + boardController.playerOne.points)
